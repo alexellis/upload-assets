@@ -5799,7 +5799,7 @@ class GetRelease {
         this.context = context;
     }
 
-    async get() {
+    async getURL() {
         // Get owner and repo from context of payload that triggered the action
         const { owner, repo } = this.context.repo;
 
@@ -5818,12 +5818,37 @@ class GetRelease {
             tag
         });
 
-        console.log(`Got release info: '${getReleaseResponse}'`);
-        return getReleaseResponse;
+        const {uploadUrl} = getReleaseResponse;
+        console.log(`Got release URL: '${uploadUrl}'`);
+        return uploadUrl;
     }
 }
 
 module.exports = GetRelease
+
+// const core = require('@actions/core');
+// const github = require('@actions/github');
+
+// const path = require('path');
+// const fs = require('fs');
+// const { pathToFileURL } = require('url');
+
+// async function runMe() {
+
+//     // Get authenticated GitHub client (Ocktokit): https://github.com/actions/toolkit/tree/master/packages/github#usage
+//     const octokit = github.getOctokit();
+//     const getRelease = new GetRelease(octokit, {
+//         ref: "refs/tags/0.1.14",
+//         repo: {
+//           repo: "release-it",
+//           owner:"alexellis",
+//         }
+//     })
+//     const uploadUrl = await getRelease.getURL()
+//     console.log(uploadUrl)
+//   }
+
+//   runMe()
 
 /***/ }),
 
@@ -5852,22 +5877,21 @@ async function run() {
   try {
     // Get authenticated GitHub client (Ocktokit): https://github.com/actions/toolkit/tree/master/packages/github#usage
     const octokit = github.getOctokit(process.env.GITHUB_TOKEN);
+    const getRelease = new GetRelease(octokit, github.context)
 
-    const context = github.context;
-    const getRelease = new GetRelease(octokit, context)
-
-    const uploadUrl = await getRelease.uploadUrl
+    const uploadUrl = await getRelease.getURL()
 
     // Get the inputs from the workflow file: https://github.com/actions/toolkit/tree/master/packages/core#inputsoutputs
     const assetPathsSt = core.getInput('asset_paths', { required: true });
-
+    console.log(typeof assetPathsSt)
     const assetPaths = JSON.parse(assetPathsSt)
     if(!assetPaths || assetPaths.length == 0) {
       core.setFailed("asset_paths must contain a JSON array of quoted paths");
+      return
     }
 
     downloadURLs = []
-    for(let i=0; i < assetPaths.length; i++) {
+    for(let i = 0; i < assetPaths.length; i++) {
       let asset = assetPaths[i];
 
       const assetContentType = core.getInput('asset_content_type', { required: true });
@@ -5877,6 +5901,7 @@ async function run() {
       const headers = { 'content-type': assetContentType, 'content-length': contentLength(asset) };
   
       const assetName = path.basename(asset)
+      console.log(`Uploading ${assetName}`)
 
       // Upload a release asset
       // API Documentation: https://developer.github.com/v3/repos/releases/#upload-a-release-asset
