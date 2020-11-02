@@ -16,7 +16,7 @@ async function run() {
 
     // Get the inputs from the workflow file: https://github.com/actions/toolkit/tree/master/packages/core#inputsoutputs
     const assetPathsSt = core.getInput('asset_paths', { required: true });
-
+    console.log(typeof assetPathsSt)
     const assetPaths = JSON.parse(assetPathsSt)
     if(!assetPaths || assetPaths.length == 0) {
       core.setFailed("asset_paths must contain a JSON array of quoted paths");
