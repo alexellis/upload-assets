@@ -22,16 +22,16 @@ async function run() {
       core.setFailed("asset_paths must contain a JSON array of quoted paths");
       return
     }
+    const contentType = "application/octet-stream"
 
     downloadURLs = []
     for(let i = 0; i < assetPaths.length; i++) {
       let asset = assetPaths[i];
 
-      const assetContentType = core.getInput('asset_content_type', { required: true });
       // Determine content-length for header to upload asset
       const contentLength = filePath => fs.statSync(filePath).size;
       // Setup headers for API call, see Octokit Documentation: https://octokit.github.io/rest.js/#octokit-routes-repos-upload-release-asset for more information
-      const headers = { 'content-type': assetContentType, 'content-length': contentLength(asset) };
+      const headers = { 'content-type': contentType, 'content-length': contentLength(asset) };
   
       const assetName = path.basename(asset)
       console.log(`Uploading ${assetName}`)
@@ -45,6 +45,8 @@ async function run() {
         name: assetName,
         file: fs.readFileSync(asset)
       });
+
+      console.log(uploadUrl,headers,assetName)
   
       // Get the browser_download_url for the uploaded release asset from the response
       const {
