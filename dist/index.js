@@ -5802,7 +5802,7 @@ class GetRelease {
     async getURL() {
         // Get owner and repo from context of payload that triggered the action
         const { owner, repo } = this.context.repo;
-
+        console.log(this.context.repo)
         // Get the tag name from the triggered action
         const tagName = this.context.ref;
     
@@ -5811,7 +5811,7 @@ class GetRelease {
     
         // Get a release from the tag name
         // API Documentation: https://developer.this.github.com/v3/repos/releases/#create-a-release
-        // Octokit Documentation: https://octokit.this.github.io/rest.js/#octokit-routes-repos-create-release
+        // Octokit Documentation: https://octokit.github.io/rest.js/#octokit-routes-repos-create-release
         const getReleaseResponse = await this.octokit.repos.getReleaseByTag({
             owner,
             repo,
