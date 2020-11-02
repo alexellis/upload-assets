@@ -23,9 +23,34 @@ class GetRelease {
             tag
         });
 
-        console.log(`Got release info: '${getReleaseResponse}'`);
-        return getReleaseResponse;
+        const {uploadUrl} = getReleaseResponse;
+        console.log(`Got release URL: '${uploadUrl}'`);
+        return uploadUrl;
     }
 }
 
 module.exports = GetRelease
+
+// const core = require('@actions/core');
+// const github = require('@actions/github');
+
+// const path = require('path');
+// const fs = require('fs');
+// const { pathToFileURL } = require('url');
+
+// async function runMe() {
+
+//     // Get authenticated GitHub client (Ocktokit): https://github.com/actions/toolkit/tree/master/packages/github#usage
+//     const octokit = github.getOctokit();
+//     const getRelease = new GetRelease(octokit, {
+//         ref: "refs/tags/0.1.14",
+//         repo: {
+//           repo: "release-it",
+//           owner:"alexellis",
+//         }
+//     })
+//     const uploadUrl = await getRelease.getURL()
+//     console.log(uploadUrl)
+//   }
+
+//   runMe()
