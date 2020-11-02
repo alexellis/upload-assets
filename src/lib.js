@@ -9,7 +9,7 @@ const GetRelease = require('./get-release')
 async function run() {
   try {
     // Get authenticated GitHub client (Ocktokit): https://github.com/actions/toolkit/tree/master/packages/github#usage
-    const octokit = new github.getOctokit(process.env.GITHUB_TOKEN);
+    const octokit = github.getOctokit(process.env.GITHUB_TOKEN);
 
     const context = github.context;
     const getRelease = new GetRelease(octokit, context)

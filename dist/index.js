@@ -5794,8 +5794,8 @@ function wrappy (fn, cb) {
 /***/ ((module) => {
 
 class GetRelease {
-    constructor(github, context) {
-        this.github = github
+    constructor(octokit, context) {
+        this.octokit = octokit
         this.context = context;
     }
 
@@ -5812,7 +5812,7 @@ class GetRelease {
         // Get a release from the tag name
         // API Documentation: https://developer.this.github.com/v3/repos/releases/#create-a-release
         // Octokit Documentation: https://octokit.this.github.io/rest.js/#octokit-routes-repos-create-release
-        const getReleaseResponse = await this.github.repos.getReleaseByTag({
+        const getReleaseResponse = await this.octokit.repos.getReleaseByTag({
             owner,
             repo,
             tag
@@ -5841,7 +5841,9 @@ run();
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 const core = __webpack_require__(127);
-const { GitHub, context } = __webpack_require__(134);
+const github = __webpack_require__(134);
+
+
 const fs = __webpack_require__(747);
 const { pathToFileURL } = __webpack_require__(835);
 const GetRelease = __webpack_require__(353)
@@ -5849,9 +5851,10 @@ const GetRelease = __webpack_require__(353)
 async function run() {
   try {
     // Get authenticated GitHub client (Ocktokit): https://github.com/actions/toolkit/tree/master/packages/github#usage
-    const github = new GitHub(process.env.GITHUB_TOKEN);
+    const octokit = github.getOctokit(process.env.GITHUB_TOKEN);
 
-    getRelease = new GetRelease(github, context)
+    const context = github.context;
+    const getRelease = new GetRelease(octokit, context)
 
     const uploadUrl = await getRelease.uploadUrl
 
@@ -5878,7 +5881,7 @@ async function run() {
       // Upload a release asset
       // API Documentation: https://developer.github.com/v3/repos/releases/#upload-a-release-asset
       // Octokit Documentation: https://octokit.github.io/rest.js/#octokit-routes-repos-upload-release-asset
-      const uploadAssetResponse = await github.repos.uploadReleaseAsset({
+      const uploadAssetResponse = await octokit.repos.uploadReleaseAsset({
         url: uploadUrl,
         headers,
         name: assetName,
