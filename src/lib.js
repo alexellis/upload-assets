@@ -9,7 +9,7 @@ async function run() {
     // Get authenticated GitHub client (Ocktokit): https://github.com/actions/toolkit/tree/master/packages/github#usage
     const github = new GitHub(process.env.GITHUB_TOKEN);
 
-    getRelease = new GetRelease(github, context)
+    const getRelease = new GetRelease(github, context)
 
     const uploadUrl = await getRelease.uploadUrl
 
