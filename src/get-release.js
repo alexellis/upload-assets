@@ -4,7 +4,7 @@ class GetRelease {
         this.context = context;
     }
 
-    async get() {
+    async getURL() {
         // Get owner and repo from context of payload that triggered the action
         const { owner, repo } = this.context.repo;
 
