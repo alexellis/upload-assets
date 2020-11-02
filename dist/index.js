@@ -5790,6 +5790,43 @@ function wrappy (fn, cb) {
 
 /***/ }),
 
+/***/ 353:
+/***/ ((module) => {
+
+class GetRelease {
+    constructor(github, context) {
+        this.github = github
+        this.context = context;
+    }
+
+    async get() {
+        // Get owner and repo from context of payload that triggered the action
+        const { owner, repo } = this.context.repo;
+
+        // Get the tag name from the triggered action
+        const tagName = this.context.ref;
+    
+        // This removes the 'refs/tags' portion of the string, i.e. from 'refs/tags/v1.10.15' to 'v1.10.15'
+        const tag = tagName.replace("refs/tags/", "");
+    
+        // Get a release from the tag name
+        // API Documentation: https://developer.this.github.com/v3/repos/releases/#create-a-release
+        // Octokit Documentation: https://octokit.this.github.io/rest.js/#octokit-routes-repos-create-release
+        const getReleaseResponse = await this.github.repos.getReleaseByTag({
+            owner,
+            repo,
+            tag
+        });
+
+        console.log(`Got release info: '${getReleaseResponse}'`);
+        return getReleaseResponse;
+    }
+}
+
+module.exports = GetRelease
+
+/***/ }),
+
 /***/ 96:
 /***/ ((__unused_webpack_module, __unused_webpack_exports, __webpack_require__) => {
 
@@ -5805,16 +5842,20 @@ run();
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 const core = __webpack_require__(127);
-const { GitHub } = __webpack_require__(134);
+const { GitHub, context } = __webpack_require__(134);
 const fs = __webpack_require__(747);
+const GetRelease = __webpack_require__(353)
 
 async function run() {
   try {
     // Get authenticated GitHub client (Ocktokit): https://github.com/actions/toolkit/tree/master/packages/github#usage
     const github = new GitHub(process.env.GITHUB_TOKEN);
 
+    getRelease = GetRelease(github, context)
+
+    const uploadUrl = await getRelease.uploadUrl
+
     // Get the inputs from the workflow file: https://github.com/actions/toolkit/tree/master/packages/core#inputsoutputs
-    const uploadUrl = core.getInput('upload_url', { required: true });
     const assetPath = core.getInput('asset_path', { required: true });
     const assetName = core.getInput('asset_name', { required: true });
     const assetContentType = core.getInput('asset_content_type', { required: true });

@@ -10,7 +10,7 @@ async function run() {
 
     getRelease = GetRelease(github, context)
 
-    const uploadUrl = getRelease.uploadUrl
+    const uploadUrl = await getRelease.uploadUrl
 
     // Get the inputs from the workflow file: https://github.com/actions/toolkit/tree/master/packages/core#inputsoutputs
     const assetPath = core.getInput('asset_path', { required: true });
