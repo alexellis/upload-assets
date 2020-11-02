@@ -5913,7 +5913,7 @@ async function run() {
       } = uploadAssetResponse;
   
       // Set the output variable for use by other actions: https://github.com/actions/toolkit/tree/master/packages/core#inputsoutputs
-      downloadURLs.append(browserDownloadUrl)
+      downloadURLs.push(browserDownloadUrl)
     }
 
     core.setOutput('browser_download_urls', JSON.stringify(downloadURLs));
