@@ -68,3 +68,6 @@ npm run build
 
 MIT
 
+Any contributions must be proposed via a GitHub issue before being worked on.
+
+You should also use `git commit -s` and follow the [DCO](https://developercertificate.org)
