@@ -30,7 +30,7 @@ async function run() {
     for(let i = 0; i < assetPaths.length; i++) {
       let asset = assetPaths[i];
       if(asset.indexOf("*") > -1) {
-        const files = glob.sync(file)
+        const files = glob.sync(asset)
           for (const file of files) {
             paths.push(file)
         }

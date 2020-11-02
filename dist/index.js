@@ -5866,6 +5866,7 @@ const path = __webpack_require__(622);
 const fs = __webpack_require__(747);
 const { pathToFileURL } = __webpack_require__(835);
 const GetRelease = __webpack_require__(176)
+const glob = __webpack_require__(710)
 
 async function run() {
   try {
@@ -5883,11 +5884,27 @@ async function run() {
       core.setFailed("asset_paths must contain a JSON array of quoted paths");
       return
     }
+
     const contentType = "binary/octet-stream"
 
-    downloadURLs = []
+    let paths = []
     for(let i = 0; i < assetPaths.length; i++) {
       let asset = assetPaths[i];
+      if(asset.indexOf("*") > -1) {
+        const files = glob.sync(asset)
+          for (const file of files) {
+            paths.push(file)
+        }
+      }else {
+        paths.push(asset)
+      }
+    }
+
+    core.debug(paths)
+
+    downloadURLs = []
+    for(let i = 0; i < paths.length; i++) {
+      let asset = paths[i];
 
       // Determine content-length for header to upload asset
       const contentLength = filePath => fs.statSync(filePath).size;
@@ -5933,6 +5950,14 @@ module.exports = run;
 /***/ ((module) => {
 
 module.exports = eval("require")("encoding");
+
+
+/***/ }),
+
+/***/ 710:
+/***/ ((module) => {
+
+module.exports = eval("require")("glob");
 
 
 /***/ }),
