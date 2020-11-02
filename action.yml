@@ -5,11 +5,8 @@ inputs:
   asset_paths:
     description: 'The paths to the assets you want to upload as a JSON array'
     required: true
-  asset_content_type:
-    description: 'The content-type of the asset you want to upload. See the supported Media Types here: https://www.iana.org/assignments/media-types/media-types.xhtml for more information'
-    required: true
 outputs:
-  browser_download_url:
+  browser_download_urls:
     description: 'The URL users can navigate to in order to download the uploaded asset'
 runs:
   using: 'node12'
