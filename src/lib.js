@@ -22,7 +22,7 @@ async function run() {
       core.setFailed("asset_paths must contain a JSON array of quoted paths");
       return
     }
-    const contentType = "application/octet-stream"
+    const contentType = "binary/octet-stream"
 
     downloadURLs = []
     for(let i = 0; i < assetPaths.length; i++) {
