@@ -12,7 +12,6 @@ class GetRelease {
     
         // This removes the 'refs/tags' portion of the string, i.e. from 'refs/tags/v1.10.15' to 'v1.10.15'
         const tag = tagName.replace("refs/tags/", "");
-        console.log(this.context.repo, tag)
 
         // Get a release from the tag name
         // API Documentation: https://developer.github.com/v3/repos/releases/#create-a-release
@@ -22,8 +21,8 @@ class GetRelease {
             repo,
             tag
         });
+
         const uploadURL = getReleaseResponse.data.upload_url
-        console.log(`Got release URL: '${uploadURL}'`);
         return uploadURL;
     }
 }

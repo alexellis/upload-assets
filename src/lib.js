@@ -61,8 +61,6 @@ async function run() {
         name: assetName,
         data: fs.readFileSync(asset)
       });
-
-      console.log(uploadUrl,headers,assetName)
   
       // Get the browser_download_url for the uploaded release asset from the response
       const {

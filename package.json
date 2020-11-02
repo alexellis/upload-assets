@@ -4,7 +4,8 @@
   "description": "GitHub Action to upload multiple assets to a release",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "ncc build src"
   },
   "repository": {
     "type": "git",
