@@ -1,5 +1,5 @@
 {
-  "name": "@openfaas/upload-assets",
+  "name": "@alexellis/upload-assets",
   "version": "1.0.0",
   "description": "GitHub Action to upload multiple assets to a release",
   "main": "index.js",
