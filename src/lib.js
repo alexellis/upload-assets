@@ -43,7 +43,7 @@ async function run() {
         url: uploadUrl,
         headers,
         name: assetName,
-        file: fs.readFileSync(asset)
+        data: fs.readFileSync(asset)
       });
 
       console.log(uploadUrl,headers,assetName)
