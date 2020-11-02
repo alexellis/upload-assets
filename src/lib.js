@@ -37,7 +37,7 @@ async function run() {
       }
     }
 
-    core.debug(paths)
+    core.debug(`Expanded paths: ${paths}`)
 
     downloadURLs = []
     for(let i = 0; i < paths.length; i++) {

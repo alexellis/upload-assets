@@ -9091,7 +9091,6 @@ class GetRelease {
     
         // This removes the 'refs/tags' portion of the string, i.e. from 'refs/tags/v1.10.15' to 'v1.10.15'
         const tag = tagName.replace("refs/tags/", "");
-        console.log(this.context.repo, tag)
 
         // Get a release from the tag name
         // API Documentation: https://developer.github.com/v3/repos/releases/#create-a-release
@@ -9101,8 +9100,8 @@ class GetRelease {
             repo,
             tag
         });
+
         const uploadURL = getReleaseResponse.data.upload_url
-        console.log(`Got release URL: '${uploadURL}'`);
         return uploadURL;
     }
 }
@@ -9182,7 +9181,7 @@ async function run() {
       }
     }
 
-    core.debug(paths)
+    core.debug(`Expanded paths: ${paths}`)
 
     downloadURLs = []
     for(let i = 0; i < paths.length; i++) {
@@ -9206,8 +9205,6 @@ async function run() {
         name: assetName,
         data: fs.readFileSync(asset)
       });
-
-      console.log(uploadUrl,headers,assetName)
   
       // Get the browser_download_url for the uploaded release asset from the response
       const {

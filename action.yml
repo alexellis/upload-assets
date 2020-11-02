@@ -3,7 +3,7 @@ description: 'Upload a release asset to an existing release in your repository'
 author: 'alexellis'
 inputs:
   asset_paths:
-    description: 'The paths to the assets you want to upload as a JSON array'
+    description: 'The paths to the assets you want to upload as a JSON array. You can use a glob pattern.'
     required: true
 outputs:
   browser_download_urls:
