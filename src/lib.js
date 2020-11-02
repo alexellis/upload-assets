@@ -5,6 +5,7 @@ const path = require('path');
 const fs = require('fs');
 const { pathToFileURL } = require('url');
 const GetRelease = require('./get-release')
+const glob = require('glob')
 
 async function run() {
   try {
@@ -22,11 +23,27 @@ async function run() {
       core.setFailed("asset_paths must contain a JSON array of quoted paths");
       return
     }
+
     const contentType = "binary/octet-stream"
 
-    downloadURLs = []
+    let paths = []
     for(let i = 0; i < assetPaths.length; i++) {
       let asset = assetPaths[i];
+      if(asset.indexOf("*") > -1) {
+        const files = glob.sync(file)
+          for (const file of files) {
+            paths.push(file)
+        }
+      }else {
+        paths.push(asset)
+      }
+    }
+
+    core.debug(paths)
+
+    downloadURLs = []
+    for(let i = 0; i < paths.length; i++) {
+      let asset = paths[i];
 
       // Determine content-length for header to upload asset
       const contentLength = filePath => fs.statSync(filePath).size;
