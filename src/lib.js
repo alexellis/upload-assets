@@ -17,25 +17,23 @@ async function run() {
 
     // Get the inputs from the workflow file: https://github.com/actions/toolkit/tree/master/packages/core#inputsoutputs
     const assetPathsSt = core.getInput('asset_paths', { required: true });
-    console.log(typeof assetPathsSt)
+
     const assetPaths = JSON.parse(assetPathsSt)
     if(!assetPaths || assetPaths.length == 0) {
       core.setFailed("asset_paths must contain a JSON array of quoted paths");
       return
     }
 
-    const contentType = "binary/octet-stream"
-
     let paths = []
     for(let i = 0; i < assetPaths.length; i++) {
-      let asset = assetPaths[i];
-      if(asset.indexOf("*") > -1) {
-        const files = glob.sync(asset)
+      let assetPath = assetPaths[i];
+      if(assetPath.indexOf("*") > -1) {
+        const files = glob.sync(assetPath)
           for (const file of files) {
             paths.push(file)
         }
       }else {
-        paths.push(asset)
+        paths.push(assetPath)
       }
     }
 
@@ -47,6 +45,7 @@ async function run() {
 
       // Determine content-length for header to upload asset
       const contentLength = filePath => fs.statSync(filePath).size;
+      const contentType = "binary/octet-stream"
       // Setup headers for API call, see Octokit Documentation: https://octokit.github.io/rest.js/#octokit-routes-repos-upload-release-asset for more information
       const headers = { 'content-type': contentType, 'content-length': contentLength(asset) };
   
