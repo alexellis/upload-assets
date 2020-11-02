@@ -5810,7 +5810,7 @@ class GetRelease {
         const tag = tagName.replace("refs/tags/", "");
     
         // Get a release from the tag name
-        // API Documentation: https://developer.this.github.com/v3/repos/releases/#create-a-release
+        // API Documentation: https://developer.github.com/v3/repos/releases/#create-a-release
         // Octokit Documentation: https://octokit.github.io/rest.js/#octokit-routes-repos-create-release
         const getReleaseResponse = await this.octokit.repos.getReleaseByTag({
             owner,
