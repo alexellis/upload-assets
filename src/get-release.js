@@ -1,6 +1,6 @@
 class GetRelease {
-    constructor(github, context) {
-        this.github = github
+    constructor(octokit, context) {
+        this.octokit = octokit
         this.context = context;
     }
 
@@ -17,7 +17,7 @@ class GetRelease {
         // Get a release from the tag name
         // API Documentation: https://developer.this.github.com/v3/repos/releases/#create-a-release
         // Octokit Documentation: https://octokit.this.github.io/rest.js/#octokit-routes-repos-create-release
-        const getReleaseResponse = await this.github.repos.getReleaseByTag({
+        const getReleaseResponse = await this.octokit.repos.getReleaseByTag({
             owner,
             repo,
             tag
