@@ -1,5 +1,5 @@
-name: 'Upload a Release Asset'
-description: 'Upload a release asset to an existing release in your repository'
+name: 'Upload Release Assets'
+description: 'Upload release assets to an existing release in your repository, including glob support'
 author: 'alexellis'
 inputs:
   asset_paths:
