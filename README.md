@@ -10,6 +10,12 @@ This action aims to resolve several outstanding user requests with [@actions/upl
 * Globbing i.e. `./bin/*`
 * Succinct - no need to populate content_type and a separate path input
 
+## Built for developers by developers
+
+<a href="https://github.com/sponsors/alexellis/">
+<img alt="Sponsor this project" src="https://github.com/alexellis/alexellis/blob/master/sponsor-today.png" width="65%" height="65%">
+</a>
+
 ## Input variables
 
 You must provide:
