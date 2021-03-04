@@ -28,8 +28,8 @@ async function run() {
     for(let i = 0; i < assetPaths.length; i++) {
       let assetPath = assetPaths[i];
       if(assetPath.indexOf("*") > -1) {
-        const files = glob.sync(assetPath)
-          for (const file of files) {
+        const files = glob.sync(assetPath,{ nodir: true })
+        for (const file of files) {
             paths.push(file)
         }
       }else {
@@ -47,7 +47,10 @@ async function run() {
       const contentLength = filePath => fs.statSync(filePath).size;
       const contentType = "binary/octet-stream"
       // Setup headers for API call, see Octokit Documentation: https://octokit.github.io/rest.js/#octokit-routes-repos-upload-release-asset for more information
-      const headers = { 'content-type': contentType, 'content-length': contentLength(asset) };
+      const headers = { 
+        'content-type': contentType, 
+        'content-length': contentLength(asset)
+      };
   
       const assetName = path.basename(asset)
       console.log(`Uploading ${assetName}`)
