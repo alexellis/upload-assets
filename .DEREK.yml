@@ -1,1 +1,8 @@
-redirect: https://raw.githubusercontent.com/inlets/inlets/master/.DEREK.yml
+curators:
+ - alexellis
+
+features:
+ - dco_check
+ - comments
+ - pr_description_required
+ - release_notes
