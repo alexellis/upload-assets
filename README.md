@@ -16,6 +16,8 @@ This action aims to resolve several outstanding user requests with [@actions/upl
 <img alt="Sponsor this project" src="https://github.com/alexellis/alexellis/blob/master/sponsor-today.png" width="65%" height="65%">
 </a>
 
+If you're using this action, <a href="https://github.com/sponsors/alexellis/">consider becoming a sponsor</a> so that I can continue to dedicate time to maintaining it.
+
 ## Input variables
 
 You must provide:
