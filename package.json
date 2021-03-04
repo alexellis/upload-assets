@@ -1,6 +1,6 @@
 {
   "name": "@alexellis/upload-assets",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "GitHub Action to upload multiple assets to a release",
   "main": "index.js",
   "scripts": {
