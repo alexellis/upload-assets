@@ -10,6 +10,23 @@ This action aims to resolve several outstanding user requests with [@actions/upl
 * Globbing i.e. `./bin/*`
 * Succinct - no need to populate content_type and a separate path input
 
+## Requirements:
+
+You can run into a "socket hangup", if you do, then add permissions for the action to write to contents.
+
+```yaml
+    permissions:
+      contents: write
+
+      actions: read
+      checks: write
+      issues: read
+      packages: write
+      pull-requests: read
+      repository-projects: read
+      statuses: read
+```
+
 ## Built for developers by developers
 
 <a href="https://github.com/sponsors/alexellis/">
