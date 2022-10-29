@@ -10,11 +10,11 @@ This action aims to resolve several outstanding user requests with [@actions/upl
 * Globbing i.e. `./bin/*`
 * Succinct - no need to populate content_type and a separate path input
 
-## Check out my eBooks
+## Check out my eBooks 📖 🤓
 
 [You can sponsor me on GitHub](https://github.com/sponsors/alexellis/), or check out my eBooks on Golang for Cloud Native Developers or Node.js for Serverless
 
-[https://store.openfaas.com](https://store.openfaas.com)
+Visit my: [eBook store](https://store.openfaas.com) 📖 🤓
 
 ## Requirements:
 
@@ -32,14 +32,6 @@ You can run into a "socket hangup", if you do, then add permissions for the acti
       repository-projects: read
       statuses: read
 ```
-
-## Built for developers by developers
-
-<a href="https://github.com/sponsors/alexellis/">
-<img alt="Sponsor this project" src="https://github.com/alexellis/alexellis/blob/master/sponsor-today.png" width="65%" height="65%">
-</a>
-
-If you're using this action, <a href="https://github.com/sponsors/alexellis/">consider becoming a sponsor</a> so that I can continue to dedicate time to maintaining it.
 
 ## Input variables
 
