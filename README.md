@@ -23,9 +23,9 @@ You can run into a "socket hangup", if you do, then add permissions for the acti
 ```yaml
     permissions:
       contents: write
+      checks: write
 
       actions: read
-      checks: write
       issues: read
       packages: write
       pull-requests: read
