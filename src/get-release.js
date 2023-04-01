@@ -1,17 +1,14 @@
 class GetRelease {
-    constructor(octokit, context) {
+    constructor(octokit, context, tag) {
         this.octokit = octokit
         this.context = context;
+        this.tag = tag || context.ref;
     }
 
     async getURL() {
         // Get owner and repo from context of payload that triggered the action
         const { owner, repo } = this.context.repo;
-        // Get the tag name from the triggered action
-        const tagName = this.context.ref;
-    
-        // This removes the 'refs/tags' portion of the string, i.e. from 'refs/tags/v1.10.15' to 'v1.10.15'
-        const tag = tagName.replace("refs/tags/", "");
+        const tag = this.tag.replace("refs/tags/", "");
 
         // Get a release from the tag name
         // API Documentation: https://developer.github.com/v3/repos/releases/#create-a-release
