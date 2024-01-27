@@ -16,15 +16,15 @@ This action aims to resolve several outstanding user requests with [@actions/upl
 
 Visit my: [eBook store](https://store.openfaas.com) 📖 🤓
 
-## Requirements:
+## Permissions
 
-You can run into a "socket hangup", if you do, then add permissions for the action to write to contents.
+The default permissions of your `GITHUB_TOKEN` should be sufficient to use this action. However, if you need to change any permissions, it is important to note that all unspecified permissions will be set to `none`.
 
+When specifying permissions, the following are required to upload an asset to a release: 
 ```yaml
     permissions:
       contents: write
       checks: write
-
       actions: read
       issues: read
       packages: write
@@ -32,6 +32,7 @@ You can run into a "socket hangup", if you do, then add permissions for the acti
       repository-projects: read
       statuses: read
 ```
+Failure to specify these permissions could result in receiving a "socket hangup" or "Resource not accessible by integration" error.
 
 ## Input variables
 
