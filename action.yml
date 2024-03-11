@@ -9,7 +9,7 @@ outputs:
   browser_download_urls:
     description: 'The URL users can navigate to in order to download the uploaded asset'
 runs:
-  using: 'node16'
+  using: 'node20'
   main: 'dist/index.js'
 branding:
   icon: 'package'
