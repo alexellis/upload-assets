@@ -22,5 +22,8 @@
     "@actions/core": "^1.2.6",
     "@actions/github": "^4.0.0",
     "glob": "^7.1.6"
+  },
+  "devDependencies": {
+    "@vercel/ncc": "^0.38.1"
   }
 }
