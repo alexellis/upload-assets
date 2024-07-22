@@ -7,8 +7,8 @@ GitHub Action to upload multiple assets to a release
 This action aims to resolve several outstanding user requests with [@actions/upload-release-asset](https://github.com/actions/upload-release-asset).
 
 * Getting the latest release tag for upload
-* Globbing i.e. `./bin/*`
-* Succinct - no need to populate content_type and a separate path input
+* [Glob patterns](https://github.com/actions/toolkit/tree/main/packages/glob#patterns) i.e. `./bin/*`, `!/bin/**/*.tmp`
+* Succinct - no need to populate `content_type` and a separate path input
 
 ## Check out my eBooks 📖 🤓
 
@@ -74,23 +74,22 @@ Example taken from [this sample project](https://github.com/alexellis/release-it
 
 ## Creating a new version
 
-Getting started:
+Getting started - use the right NodeJS version with [`nvm`](https://github.com/nvm-sh/nvm):
 
 ```bash
-npm i -g  @vercel/ncc
+nvm install
 ```
 
 Build:
 
 ```bash
-npm i
+npm install
 npm run build
 ```
 
 ## License
 
 MIT
-
 
 ## Contribution guide
 
