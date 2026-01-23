@@ -4,7 +4,7 @@ class GetRelease {
         this.context = context;
     }
 
-    async getURL() {
+    async getReleaseInfo() {
         // Get owner and repo from context of payload that triggered the action
         const { owner, repo } = this.context.repo;
         // Get the tag name from the triggered action
@@ -22,8 +22,10 @@ class GetRelease {
             tag
         });
 
-        const uploadURL = getReleaseResponse.data.upload_url
-        return uploadURL;
+        return {
+            upload_url: getReleaseResponse.data.upload_url,
+            release_id: getReleaseResponse.data.id
+        };
     }
 }
 

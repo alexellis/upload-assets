@@ -13,10 +13,12 @@ async function run() {
     const octokit = github.getOctokit(process.env.GITHUB_TOKEN);
     const getRelease = new GetRelease(octokit, github.context)
 
-    const uploadUrl = await getRelease.getURL()
+    const releaseInfo = await getRelease.getReleaseInfo();
+    const uploadUrl = releaseInfo.upload_url;
 
     // Get the inputs from the workflow file: https://github.com/actions/toolkit/tree/master/packages/core#inputsoutputs
     const assetPathsSt = core.getInput('asset_paths', { required: true });
+    const overwriteExisting = core.getInput('overwrite_existing', { required: false }) === 'true';
 
     const assetPaths = JSON.parse(assetPathsSt)
     if(!assetPaths || assetPaths.length == 0) {
@@ -53,6 +55,26 @@ async function run() {
       };
   
       const assetName = path.basename(asset)
+
+      // Check if asset exists and delete if overwrite is enabled
+      if (overwriteExisting) {
+        const { data: existingAssets } = await octokit.repos.listReleaseAssets({
+          owner: github.context.repo.owner,
+          repo: github.context.repo.repo,
+          release_id: releaseInfo.release_id,
+        });
+
+        const existingAsset = existingAssets.find(asset => asset.name === assetName);
+        if (existingAsset) {
+          console.log(`Deleting existing asset ${assetName}`);
+          await octokit.repos.deleteReleaseAsset({
+            owner: github.context.repo.owner,
+            repo: github.context.repo.repo,
+            asset_id: existingAsset.id,
+          });
+        }
+      }
+
       console.log(`Uploading ${assetName}`)
 
       // Upload a release asset
