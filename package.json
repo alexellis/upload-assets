@@ -2,6 +2,7 @@
   "name": "@alexellis/upload-assets",
   "version": "1.0.1",
   "description": "GitHub Action to upload multiple assets to a release",
+  "type": "module",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -19,8 +20,8 @@
   },
   "homepage": "https://github.com/alexellis/upload-assets#readme",
   "dependencies": {
-    "@actions/core": "^1.2.6",
-    "@actions/github": "^4.0.0",
+    "@actions/core": "^3.0.1",
+    "@actions/github": "^9.1.1",
     "glob": "^7.1.6"
   },
   "devDependencies": {
