@@ -1,11 +1,9 @@
-const core = require('@actions/core');
-const github = require('@actions/github');
-
-const path = require('path');
-const fs = require('fs');
-const { pathToFileURL } = require('url');
-const GetRelease = require('./get-release')
-const glob = require('glob')
+import * as core from '@actions/core';
+import * as github from '@actions/github';
+import path from 'path';
+import fs from 'fs';
+import glob from 'glob';
+import GetRelease from './get-release.js';
 
 async function run() {
   try {
@@ -19,7 +17,7 @@ async function run() {
     const assetPathsSt = core.getInput('asset_paths', { required: true });
 
     const assetPaths = JSON.parse(assetPathsSt)
-    if(!assetPaths || assetPaths.length == 0) {
+    if(!assetPaths || assetPaths.length == 0) {
       core.setFailed("asset_paths must contain a JSON array of quoted paths");
       return
     }
@@ -39,7 +37,7 @@ async function run() {
 
     core.debug(`Expanded paths: ${paths}`)
 
-    downloadURLs = []
+    let downloadURLs = []
     for(let i = 0; i < paths.length; i++) {
       let asset = paths[i];
 
@@ -58,7 +56,7 @@ async function run() {
       // Upload a release asset
       // API Documentation: https://developer.github.com/v3/repos/releases/#upload-a-release-asset
       // Octokit Documentation: https://octokit.github.io/rest.js/#octokit-routes-repos-upload-release-asset
-      const uploadAssetResponse = await octokit.repos.uploadReleaseAsset({
+      const uploadAssetResponse = await octokit.rest.repos.uploadReleaseAsset({
         url: uploadUrl,
         headers,
         name: assetName,
@@ -80,4 +78,4 @@ async function run() {
   }
 }
 
-module.exports = run;
+export default run;

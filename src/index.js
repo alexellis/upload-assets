@@ -1,3 +1,3 @@
-const run = require('./lib');
+import run from './lib.js';
 
 run();
